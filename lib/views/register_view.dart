@@ -33,50 +33,43 @@ class _RegisterViewState extends State<RegisterView> {
       appBar: AppBar(
         title: Text("Register"),
       ),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return Column(
-                children: [
-                  TextField(
-                    autocorrect: false,
-                    enableSuggestions: false,
-                    keyboardType: TextInputType.emailAddress,
-                    controller: _email,
-                    decoration:
-                        InputDecoration(hintText: "Please Enter your Email"),
-                  ),
-                  TextField(
-                    controller: _password,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                        hintText: "Please Enter your  Password"),
-                  ),
-                  TextButton(
-                      onPressed: () async {
-                        final email = _email.text;
-                        final password = _password.text;
-                        try {
-                          final userCredential = FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
-                                  email: email, password: password);
-                        } on FirebaseAuthException catch (e) {
-                          print("some error occured");
-                        }
-                      },
-                      child: Text("Register"))
-                ],
-              );
-            default:
-              return Text(".....Loading");
-          }
-        },
+      body: Column(
+        children: [
+          TextField(
+            autocorrect: false,
+            enableSuggestions: false,
+            keyboardType: TextInputType.emailAddress,
+            controller: _email,
+            decoration: InputDecoration(hintText: "Please Enter your Email"),
+          ),
+          TextField(
+            controller: _password,
+            obscureText: true,
+            enableSuggestions: false,
+            autocorrect: false,
+            decoration:
+                InputDecoration(hintText: "Please Enter your  Password"),
+          ),
+          TextButton(
+              onPressed: () async {
+                final email = _email.text;
+                final password = _password.text;
+                try {
+                  final userCredential = FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                          email: email, password: password);
+                } on FirebaseAuthException catch (e) {
+                  print("some error occured");
+                }
+              },
+              child: Text("Register")),
+          TextButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/Login', (route) => false);
+              },
+              child: Text("Already registerd? Login here"))
+        ],
       ),
     );
   }

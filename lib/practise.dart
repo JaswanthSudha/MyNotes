@@ -1,98 +1,106 @@
-// // import 'dart:math';
+// // // import 'dart:math';
 
-// // class Person {
-// //   static String firstName = "jashu";
-// //   String lastName = "sudha";
-// //   void breathe() {
-// //     print("i can breathe");
-// //   }
+// // // class Person {
+// // //   static String firstName = "jashu";
+// // //   String lastName = "sudha";
+// // //   void breathe() {
+// // //     print("i can breathe");
+// // //   }
 
+// // //   void run() {
+// // //     print("I can run");
+// // //   }
+// // // }
+
+// // // class Cat {
+// // //   final String name;
+// // //   Cat(this.name);
+// // //   // @override
+// // //   // bool operator ==(covariant Cat other) => name == other.name;
+// // //   // @override
+// // //   // int get hashCode => super.hashCode;
+// // // }
+
+// // // void main() {
+// // //   // final obj = Cat("fool");
+// // //   // final obj2 = Cat("fool");
+// // //   // if (obj.name == obj2.name) {
+// // //   //   print("same");
+// // //   // } else {
+// // //   //   print("not same");
+// // //   // }
+// // // }
+// // class Cat {
+// //   String name;
+// //   Cat(this.name);
+// // }
+
+// // extension Run on Cat {
 // //   void run() {
-// //     print("I can run");
+// //     print("This is $name");
 // //   }
 // // }
 
-// // class Cat {
-// //   final String name;
-// //   Cat(this.name);
-// //   // @override
-// //   // bool operator ==(covariant Cat other) => name == other.name;
-// //   // @override
-// //   // int get hashCode => super.hashCode;
+// // class Person {
+// //   final String firstName;
+// //   final String lastName;
+// //   Person(this.firstName, this.lastName);
+// // }
+
+// // extension FullName on Person {
+// //   String get fullName => '$firstName $lastName';
+// //   // String fullName() {
+// //   //   return '$firstName $lastName';
+// //   // }
 // // }
 
 // // void main() {
-// //   // final obj = Cat("fool");
-// //   // final obj2 = Cat("fool");
-// //   // if (obj.name == obj2.name) {
-// //   //   print("same");
-// //   // } else {
-// //   //   print("not same");
-// //   // }
+// //   final obj = Cat("jashu");
+// //   obj.run();
+// //   final person1 = Person("Jaswanth", "Sudha");
+// //   print(person1.fullName);
 // // }
-// class Cat {
-//   String name;
-//   Cat(this.name);
+// Future<int> heavyFuture(int a) {
+//   return Future.delayed(const Duration(seconds: 10), () {
+//     return a * 10;
+//   });
 // }
 
-// extension Run on Cat {
-//   void run() {
-//     print("This is $name");
-//   }
+// void test() async {
+//   final result = await heavyFuture(10);
+//   print(result);
 // }
 
-// class Person {
-//   final String firstName;
-//   final String lastName;
-//   Person(this.firstName, this.lastName);
-// }
-
-// extension FullName on Person {
-//   String get fullName => '$firstName $lastName';
-//   // String fullName() {
-//   //   return '$firstName $lastName';
+// void main() async {
+//   // test();
+//   // await for (final value in getName()) {
+//   //   print(value);
 //   // }
+//   // print(getOne());
+//   // final names = Pair(1, "Sudha");
+
+//   // print(names.value1);s
+//   final names = Generic("jashu");
 // }
 
-// void main() {
-//   final obj = Cat("jashu");
-//   obj.run();
-//   final person1 = Person("Jaswanth", "Sudha");
-//   print(person1.fullName);
+// Iterable<int> getOne() sync* {
+//   yield 1;
 // }
-Future<int> heavyFuture(int a) {
-  return Future.delayed(const Duration(seconds: 10), () {
-    return a * 10;
-  });
-}
 
-void test() async {
-  final result = await heavyFuture(10);
-  print(result);
-}
+// Stream<String> getName() {
+//   return Stream.periodic(const Duration(seconds: 1), (value) {
+//     return 'foo';
+//   });
+// }
 
-void main() async {
-  // test();
-  // await for (final value in getName()) {
-  //   print(value);
-  // }
-  // print(getOne());
-  final names = Pair(1, "Sudha");
-  print(names.value1);
-}
+// class Pair<A, B> {
+//   final A value1;
+//   final B value2;
+//   Pair(this.value1, this.value2);
+// }
 
-Iterable<int> getOne() sync* {
-  yield 1;
-}
+// class Generic<T> {
+//   final T value;
+//   Generic(this.value);
+// }
 
-Stream<String> getName() {
-  return Stream.periodic(const Duration(seconds: 1), (value) {
-    return 'foo';
-  });
-}
-
-class Pair<A, B> {
-  final A value1;
-  final B value2;
-  Pair(this.value1, this.value2);
-}

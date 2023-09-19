@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app/constants/routes.dart';
 import 'package:my_app/firebase_options.dart';
 import 'dart:developer' as devtools show log;
 
@@ -61,7 +62,7 @@ class _LoginViewState extends State<LoginView> {
                       .signInWithEmailAndPassword(
                           email: email, password: password);
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/Notes', (route) => false);
+                      .pushNamedAndRemoveUntil(notesRoute, (route) => false);
                 } on FirebaseAuthException catch (e) {
                   print(e);
                 }
@@ -70,7 +71,7 @@ class _LoginViewState extends State<LoginView> {
           TextButton(
               onPressed: () {
                 Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/Register', (route) => false);
+                    .pushNamedAndRemoveUntil(registerRoute, (route) => false);
               },
               child: Text("Not Registered yet? Register here"))
         ],

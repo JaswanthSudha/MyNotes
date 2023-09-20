@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/constants/routes.dart';
-import 'package:my_app/firebase_options.dart';
-import 'dart:developer' as devtools show log;
+
+import 'package:my_app/utilities/show_error_dialog.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -58,13 +56,14 @@ class _LoginViewState extends State<LoginView> {
                 final email = _email.text;
                 final password = _password.text;
                 try {
-                  final userDetails = await FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          email: email, password: password);
+                  await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: email, password: password);
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context)
                       .pushNamedAndRemoveUntil(notesRoute, (route) => false);
                 } on FirebaseAuthException catch (e) {
-                  print(e);
+                  // ignore: use_build_context_synchronously
+                  await showErrorDialog(context, "Error");
                 }
               },
               child: Text("Login")),

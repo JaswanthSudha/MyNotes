@@ -1,6 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/constants/routes.dart';
+import 'package:my_app/services/auth/auth_exceptions.dart';
+import 'package:my_app/services/auth/auth_service.dart';
 
 import 'package:my_app/utilities/show_error_dialog.dart';
 
@@ -56,12 +57,19 @@ class _LoginViewState extends State<LoginView> {
                 final email = _email.text;
                 final password = _password.text;
                 try {
-                  await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: email, password: password);
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil(notesRoute, (route) => false);
-                } on FirebaseAuthException catch (e) {
+                  AuthService.firebase().logIn(mail: email, password: password);
+                  final user = AuthService.firebase().currentUser;
+                  final emailVerified = user?.isEmailVerified ?? false;
+                  if (emailVerified) {
+                    // ignore: use_build_context_synchronously
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil(notesRoute, (route) => false);
+                  } else {
+                    // ignore: use_build_context_synchronously
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        verifyEmailRoute, (route) => false);
+                  }
+                } on GenericAuthException catch (_) {
                   // ignore: use_build_context_synchronously
                   await showErrorDialog(context, "Error");
                 }

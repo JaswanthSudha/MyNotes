@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/constants/routes.dart';
-import 'package:my_app/firebase_options.dart';
-import 'dart:developer' as devtools show log;
+import 'package:my_app/services/auth/auth_exceptions.dart';
+import 'package:my_app/services/auth/auth_service.dart';
 
 import 'package:my_app/utilities/show_error_dialog.dart';
 
@@ -59,15 +57,13 @@ class _RegisterViewState extends State<RegisterView> {
                 final email = _email.text;
                 final password = _password.text;
                 try {
-                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                    email: email,
-                    password: password,
-                  );
-                  final user = FirebaseAuth.instance.currentUser;
-                  await user?.sendEmailVerification();
+                  AuthService.firebase()
+                      .createUser(mail: email, password: password);
+                  final user = AuthService.firebase().currentUser;
+                  AuthService.firebase().sendEmailVerification();
                   // ignore: use_build_context_synchronously
                   Navigator.of(context).pushNamed(verifyEmailRoute);
-                } on FirebaseAuthException catch (e) {
+                } on GenericAuthException catch (e) {
                   // ignore: use_build_context_synchronously
                   showErrorDialog(context, "error");
                 }

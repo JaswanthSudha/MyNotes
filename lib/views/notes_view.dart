@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/constants/routes.dart';
 import 'package:my_app/enums/menu_action.dart';
 import 'package:my_app/services/auth/auth_service.dart';
+import 'package:my_app/services/crud/notes_service.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
@@ -11,6 +12,19 @@ class NotesView extends StatefulWidget {
 }
 
 class _NotesViewState extends State<NotesView> {
+  late final NotesService _notesService2;
+  @override
+  void initState() {
+    _notesService2.open();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // _notesService.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +52,7 @@ class _NotesViewState extends State<NotesView> {
           })
         ],
       ),
+      body: Text("done"),
     );
   }
 }
